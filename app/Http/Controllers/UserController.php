@@ -36,7 +36,7 @@ class UserController extends Controller
 
     }
 
-    public function getUserDataByToken($token = null)
+    public static function getUserDataByToken($token = null)
     {
         $token = $token ?: \Illuminate\Support\Facades\Request::header('token');
         $user = User::where('token', $token)->first();

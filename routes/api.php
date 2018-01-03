@@ -15,9 +15,9 @@ use Illuminate\Http\Request;
 
 Route::post('/register', 'UserController@register');
 Route::post('/login', 'UserController@login');
+Route::post('/question/create', 'QuestionController@createQuestion');
 
 Route::group(['middleware' => ['custom_auth']], function () {
     Route::get('/user/profile', 'UserController@getUser');
-
 });
 
