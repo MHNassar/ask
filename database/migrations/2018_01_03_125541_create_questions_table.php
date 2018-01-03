@@ -17,6 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->text('question')->nullable();
+            $table->integer('likes_count')->default(0);
             $table->integer('user_id')->unsigned();
             $table->integer('category_id')->unsigned();
 
