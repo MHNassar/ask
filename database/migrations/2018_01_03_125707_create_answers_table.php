@@ -18,6 +18,7 @@ class CreateAnswersTable extends Migration
             $table->increments('id');
             $table->integer('question_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->text('body');
 
             $table->foreign('question_id')
                 ->references('id')
