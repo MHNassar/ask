@@ -36,13 +36,15 @@ class UserController extends Controller
 
     }
 
-    public function getUserDataByToken($token)
+    public function getUserDataByToken($token = null)
     {
+        $token = $token ?: \Illuminate\Support\Facades\Request::header('token');
         $user = User::where('token', $token)->first();
-        if ($user) {
-            return $user;
-        }
+        return $user;
+    }
 
-
+    public function getUser()
+    {
+        return $this->getUserDataByToken();
     }
 }
