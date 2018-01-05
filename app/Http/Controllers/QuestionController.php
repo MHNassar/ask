@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Like;
 use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -86,7 +87,60 @@ class QuestionController extends Controller
             $categoryId = Route::input('category_id');
             $questions = Question::where('category_id', $categoryId)->get();
             return response()->json(['data' => $questions], 200);
-        }else{
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    }
+
+    public function likeQuestion()
+    {
+        $user = UserController::getUserDataByToken();
+        if (isset($user)) {
+            $questionId = Route::input('question_id');
+            $question = Question::where('id', $questionId)->first();
+            if (isset($question)) {
+
+                // if auth user like this question before, we will go to unlike action
+                $existLike = Like::where('question_id', $questionId)->where('user_id', $user->id)->first();
+                if (isset($existLike)) {
+                    return QuestionController::unLikeQuestion();
+                } else {
+                    $like = new Like();
+                    $like->question_id = $questionId;
+                    $like->user_id = $user->id;
+                    $like->save();
+
+                    $question->likes_count += 1;
+                    $question->save();
+                }
+
+                return response()->json(['message' => 'Like Question Done'], 200);
+            } else {
+                return response()->json(['message' => 'Question Not Found'], 404);
+            }
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    }
+
+    public function unLikeQuestion()
+    {
+        $user = UserController::getUserDataByToken();
+        if (isset($user)) {
+            $questionId = Route::input('question_id');
+            $question = Question::where('id', $questionId)->first();
+            if (isset($question)) {
+
+                $like = Like::where('question_id', $questionId)->where('user_id', $user->id)->first();
+                $like->delete();
+
+                $question->likes_count -= 1;
+                $question->save();
+                return response()->json(['message' => 'Unlike Question Done'], 200);
+            } else {
+                return response()->json(['message' => 'Question Not Found'], 404);
+            }
+        } else {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
     }

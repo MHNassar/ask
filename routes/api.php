@@ -22,5 +22,7 @@ Route::group(['middleware' => ['custom_auth']], function () {
     Route::post('/question/edit/{question_id}', 'QuestionController@updateQuestion');
     Route::post('question/delete/{question_id}', 'QuestionController@deleteQuestion');
     Route::post('category/{category_id}/questions', 'QuestionController@listCategory');
+    Route::post('question/like/{question_id}', 'QuestionController@likeQuestion');
+    Route::post('question/unlike/{question_id}', 'QuestionController@unLikeQuestion');
 });
 
