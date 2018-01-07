@@ -13,11 +13,11 @@ class QuestionController extends Controller
 {
     public function getAllQuestions($q = null)
     {
-        $questions = Question::has('answer')->with(['user', 'category']);
+        $questions = Question::has('answer')->with(['user', 'category', 'answer']);
         if ($q != null) {
-            $questions .= $questions->where('question', 'like', '%' . $q . '%');
+            $questions = $questions->where('question', 'like', '%' . $q . '%');
         }
-        $questions .= $questions->paginate('20');
+        $questions = $questions->paginate('20');
         return $questions;
     }
 
