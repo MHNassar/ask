@@ -25,7 +25,7 @@ class QuestionController extends Controller
     {
         $user = UserController::getUserDataByToken();
 
-        $questions = User::where('id', $user->id)->with('likes.question')->paginate('20');
+        $questions = User::where('id', $user->id)->with('likes.question')->get();
         return $questions;
 
     }
@@ -163,7 +163,7 @@ class QuestionController extends Controller
             if (isset($question)) {
 
                 $like = Like::where('question_id', $questionId)->where('user_id', $user->id)->first();
-                if(isset($like)){
+                if (isset($like)) {
                     $like->delete();
                     $question->likes_count -= 1;
                     $question->save();
