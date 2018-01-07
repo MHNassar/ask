@@ -163,11 +163,13 @@ class QuestionController extends Controller
             if (isset($question)) {
 
                 $like = Like::where('question_id', $questionId)->where('user_id', $user->id)->first();
-                $like->delete();
+                if(isset($like)){
+                    $like->delete();
+                    $question->likes_count -= 1;
+                    $question->save();
+                    return response()->json(['message' => 'Unlike Question Done'], 200);
+                }
 
-                $question->likes_count -= 1;
-                $question->save();
-                return response()->json(['message' => 'Unlike Question Done'], 200);
             } else {
                 return response()->json(['message' => 'Question Not Found'], 404);
             }
