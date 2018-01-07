@@ -24,5 +24,8 @@ Route::group(['middleware' => ['custom_auth']], function () {
     Route::post('category/{category_id}/questions', 'QuestionController@listCategory');
     Route::post('question/like/{question_id}', 'QuestionController@likeQuestion');
     Route::post('question/unlike/{question_id}', 'QuestionController@unLikeQuestion');
+    Route::get('questions/{q?}', 'QuestionController@getAllQuestions');
+    Route::get('user/questions/like', 'QuestionController@getLikedQuestions');
+    Route::get('user/questions', 'QuestionController@getUserQuestions');
 });
 

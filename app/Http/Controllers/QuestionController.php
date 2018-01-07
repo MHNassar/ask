@@ -4,12 +4,43 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Like;
+use App\Models\User;
 use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 class QuestionController extends Controller
 {
+    public function getAllQuestions($q = null)
+    {
+        $questions = Question::has('answer')->with(['user', 'category']);
+        if ($q != null) {
+            $questions .= $questions->where('question', 'like', '%' . $q . '%');
+        }
+        $questions .= $questions->paginate('20');
+        return $questions;
+    }
+
+    public function getLikedQuestions()
+    {
+        $user = UserController::getUserDataByToken();
+
+        $questions = User::where('id', $user->id)->with('likes.question')->paginate('20');
+        return $questions;
+
+    }
+
+    public function getUserQuestions()
+    {
+        $user = UserController::getUserDataByToken();
+        $questions = User::where('id', $user->id)
+            ->with('questionsWithAnswer')
+            ->with('questionsWithOutAnswer')
+            ->get();
+        return $questions;
+    }
+
+
     public function createQuestion(Request $request)
     {
         $user = UserController::getUserDataByToken();
