@@ -27,5 +27,6 @@ Route::group(['middleware' => ['custom_auth']], function () {
     Route::get('questions/{q?}', 'QuestionController@getAllQuestions');
     Route::get('user/questions/like', 'QuestionController@getLikedQuestions');
     Route::get('user/questions', 'QuestionController@getUserQuestions');
+    Route::post('question/{question_id}/answer', 'AnswerController@createAnswer');
 });
 
