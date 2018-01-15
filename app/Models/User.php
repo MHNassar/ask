@@ -2,48 +2,93 @@
 
 namespace App\Models;
 
-use App\Like;
-use App\Question;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Database\Eloquent\Model as Model;
 
-class User extends Authenticatable
+/**
+ * Class User
+ * @package App\Models
+ * @version January 15, 2018, 2:32 pm UTC
+ *
+ * @property \Illuminate\Database\Eloquent\Collection Answer
+ * @property \Illuminate\Database\Eloquent\Collection Like
+ * @property \Illuminate\Database\Eloquent\Collection Question
+ * @property string name
+ * @property string email
+ * @property string password
+ * @property string phone
+ * @property string biography
+ * @property string photo
+ * @property string remember_token
+ * @property string token
+ */
+class User extends Model
 {
-    use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password', 'phone'
+    public $table = 'users';
+    
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
+
+
+
+    public $fillable = [
+        'name',
+        'email',
+        'password',
+        'phone',
+        'biography',
+        'photo',
+        'remember_token',
+        'token'
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be casted to native types.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token', 'token', 'created_at', 'updated_at'
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'email' => 'string',
+        'password' => 'string',
+        'phone' => 'string',
+        'biography' => 'string',
+        'photo' => 'string',
+        'remember_token' => 'string',
+        'token' => 'string'
     ];
 
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function answers()
+    {
+        return $this->hasMany(\App\Models\Answer::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
     public function likes()
     {
-        return $this->hasMany(Like::class, 'user_id', 'id');
+        return $this->hasMany(\App\Models\Like::class);
     }
 
-    public function questionsWithOutAnswer()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function questions()
     {
-        return $this->hasMany(Question::class, 'user_id', 'id')
-            ->with('category')->with('answer')->whereDoesntHave("answer");
-    }
-
-    public function questionsWithAnswer()
-    {
-        return $this->hasMany(Question::class, 'user_id', 'id')
-            ->with('category')->with('answer')->wherehas('answer');
+        return $this->hasMany(\App\Models\Question::class);
     }
 }
