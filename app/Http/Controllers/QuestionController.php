@@ -17,7 +17,7 @@ class QuestionController extends Controller
         if ($q != null) {
             $questions = $questions->where('question', 'like', '%' . $q . '%');
         }
-        $questions = $questions->paginate('20');
+        $questions = $questions->get();
         return $questions;
     }
 
