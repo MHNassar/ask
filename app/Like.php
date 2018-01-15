@@ -8,15 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Like extends Model
 {
     public $table = 'likes';
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at', 'id', 'question_id', 'user_id'];
 
     public function question()
     {
-        return $this->belongsTo(Question::class, 'question_id');
+        return $this->belongsTo(Question::class, 'question_id')
+            ->with('user')->with('category');
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
 }
