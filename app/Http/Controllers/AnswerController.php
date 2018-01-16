@@ -27,4 +27,26 @@ class AnswerController extends Controller
             return response()->json(['message' => 'Unauthorized'], 401);
         }
     }
+
+    public function updateAnswer(Request $request)
+    {
+        $user = UserController::getUserDataByToken();
+        $answerId = Route::input('answer_id');
+        if (isset($user)) {
+            if (!isset(Answer::where('id', $answerId)->first()->id)) {
+                return response()->json(['message' => 'Answer not found'], 404);
+            } else if ($user->id == Answer::where('id', $answerId)->first()->user_id) {
+                $answer = Answer::where('id', $answerId)->first();
+                $answer->body = $request->body;
+                $answer->save();
+                return response()->json(['message' => 'Answer Updated '], 200);
+            } else {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    }
+
+
 }
