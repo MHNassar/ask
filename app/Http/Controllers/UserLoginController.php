@@ -17,7 +17,7 @@ class UserLoginController extends Controller
         $input['name'] = $input['f_name'] . ' ' . $input['l_name'];
         $input['password'] = bcrypt($input['password']);
         try {
-            $user = User::create($input);
+            User::create($input);
 
             return response()->json(['message' => 'User Created '], 200);
         } catch (QueryException $ex) {

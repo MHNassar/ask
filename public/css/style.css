@@ -1,0 +1,237 @@
+
+@font-face {
+    font-family: 'Cairo-Regular';
+    src: url('../fonts/Cairo-Regular.ttf');
+
+}
+
+
+body{
+    font-family: Cairo-Regular;
+    direction: rtl;
+    color: #ffffff;
+    width: 325px !important;
+    margin:0 auto;
+}
+.container {
+    width: 100%;
+    height: 100%;
+    padding:0;
+    float: left;
+    /* margin: 15px; */
+    max-height: 205px;
+}
+
+.card{
+    background-color: #cb3c35;
+    display: block;
+    position: relative;
+    width: 100%;
+    z-index: -9999;
+}
+
+
+
+
+.card-body{
+    /*background-image: url("../img/img.png");*/
+    /*background-size: cover;*/
+    padding: 0 4px;
+    position: relative;
+    height: 205px;
+    padding: 22px 65px 0 0;
+}
+.background-img{
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+}
+.avatar {
+    margin: 3px 0px 0 0px;
+}
+.avatar img{
+    border: 2px solid #ffffff;
+}
+.card-body-right p{
+    font-size: 6px;
+    margin-bottom: 0;
+}
+
+
+
+.card-body-center{
+    /* padding: 4px 6px; */
+    width: 100%;
+    display: inline-block;
+    float: right;
+    text-align: center;
+}
+.card-body-right{
+    /* padding: 4px 6px; */
+    width: 40%;
+    display: inline-block;
+    float: right;
+    text-align: center;
+}
+
+.card-body-left{
+    margin: -5px 0 7px 0;
+    display: inline-block;
+    width: 60%;
+    /* padding-right: 0; */
+    padding-top: 0;
+    height: 126px;
+}
+
+.card-body-left ul li label{
+    display: block;
+    margin: 2px 0px 0px 0px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.card-body-left ul{
+    padding:0;
+    margin: 0;
+    position: relative;
+    padding: 0;
+    list-style: none;
+    transform: translateY(-50%);
+    top: 50%;
+}
+.card-body-left ul li  {
+    font-size: 12px;
+    font-weight: 900;
+    margin-top: 4px;
+    list-style-type: none;
+    padding: 0 6px;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+}
+.english-direction {direction: ltr}
+
+.img-responsive{
+    max-width: 100%;
+    margin: 0 auto;
+}
+.card-bottom, .card-bottom-center {
+    text-align: center;
+    padding-right: 50px;
+    padding-top: 1px;
+    margin-top: -6px;
+    height: 57px;
+}
+.card-bottom .card-bottom-right, .card-bottom-center .card-bottom-right{
+    float: right;
+    margin-right: 0;
+}
+.card-bottom .card-bottom-right img {
+    width: 29%;
+    margin-top: 4px;
+    margin-right: 18px;
+}
+.card-bottom .card-bottom-right p, .card-bottom-center .card-bottom-right p{
+    font-size:8px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 2px;
+}
+.card-bottom .card-bottom-right p{
+    text-align: right;
+    padding-right: 16px;
+}
+.card-bottom .card-bottom-left p, .card-bottom-center .card-bottom-left p{margin-top: 21%;font-size:7px;margin-bottom: 0;}
+.ID{
+    width: 96px;
+    height: 96px;
+    margin: 0 auto;
+    color: #000000;
+    background-color: #ffffff;
+    border-radius: 50%;
+    padding: 8px 20px;
+}
+.ID h1{font-weight: bold}
+.card-body-center p{
+    margin-bottom: 6px;
+    font-size: 6px;
+
+}
+.card-body-center h3{
+    margin-top: 0;
+    font-size: 13.5px;
+}
+.card-bottom-center .card-bottom-right{
+    margin-top: 14%;
+    margin-right: 9%;
+}
+
+.card-bottom-center .card-bottom-left img{
+    width: 30%;
+}
+.card-bottom-center .card-bottom-left{
+    float: left;
+    width: 50%;
+}
+.card-bottom-center .card-bottom-left p{
+    margin-top: 3px;
+}
+.vip-Version{
+    background-color: #58585a;
+}
+.vip-body{
+    padding: 0;
+}
+.vip-Version .background-img{
+    top: 55px;
+}
+.vip-body .avatar{
+    width: 78px;
+    margin-right: 16px;
+    margin-top: 5px;
+}
+.vip-body .avatar img{
+    border: none;
+
+}
+.vip-body .card-body-right{
+    width: 29%;
+}
+.vip-body .card-body-left{
+    width: 71%;
+}
+.vip-body .card-body-right p{
+    margin-right: 14px;
+    margin-top: 4px;
+    font-size: 8px;
+}
+
+.vip-body .card-bottom
+{
+    height: 28px;
+    margin-top: -5px;
+}
+.vip-body .card-bottom .card-bottom-left p {
+    margin-top:0;
+    font-size: 8px;
+    margin-bottom: 0;
+}
+.vip-body .card-bottom-left{
+    float: left;
+    margin-left: 26px;
+}
+.vip-body .card-bottom .card-bottom-right p{
+    font-weight: normal;
+    font-size: 9px;
+    padding-right: 7px;
+    margin-top: 0;
+}
+@page
+{
+    size: auto;   /* auto is the initial value */
+
+    /* this affects the margin in the printer settings */
+    margin: 0mm;
+}

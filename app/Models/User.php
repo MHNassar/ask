@@ -18,9 +18,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone'
+        'name', 'email', 'password', 'phone', 'biography', 'photo', 'type'
     ];
 
+    protected $primaryKey = 'id';
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -46,4 +47,6 @@ class User extends Authenticatable
         return $this->hasMany(Question::class, 'user_id', 'id')
             ->with('category')->with('answer')->wherehas('answer');
     }
+
+
 }
