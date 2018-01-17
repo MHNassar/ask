@@ -9,14 +9,15 @@
   "type": "project",
   "require": {
     "php": ">=7.0.0",
+    "doctrine/dbal": "~2.3",
     "fideloper/proxy": "~3.3",
+    "infyomlabs/adminlte-templates": "5.5.x-dev",
+    "infyomlabs/laravel-generator": "5.5.x-dev",
     "laravel/framework": "5.5.*",
     "laravel/tinker": "~1.0",
-    "tymon/jwt-auth": "^1.0@dev",
-    "infyomlabs/laravel-generator": "5.5.x-dev",
     "laravelcollective/html": "^5.5.0",
-    "infyomlabs/adminlte-templates": "5.5.x-dev",
-    "doctrine/dbal": "~2.3"
+    "tymon/jwt-auth": "^1.0@dev",
+    "yajra/laravel-datatables-buttons": "^3.0"
   },
   "require-dev": {
     "filp/whoops": "~2.0",

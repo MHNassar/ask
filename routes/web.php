@@ -11,11 +11,23 @@
 |
 */
 
+Auth::routes();
+
+
 Route::get('/', function () {
     return view('welcome');
 });
-Auth::routes();
 
-Route::get('/home', 'HomeController@index');
 
-//Route::resource('users', 'UserController');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', function () {
+        return Auth::user()->name;
+    });
+    Route::resource('users', 'userController');
+    Route::resource('twittes', 'TwitteController');
+
+
+});
+
+
+

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     public $table = 'questions';
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['updated_at'];
 
     public function user()
     {
@@ -22,7 +22,7 @@ class Question extends Model
 
     public function answer()
     {
-        return $this->hasOne(Answer::class, 'question_id', 'id');
+        return $this->hasOne(Answer::class, 'question_id', 'id')->with('answersUser');
     }
 
 }

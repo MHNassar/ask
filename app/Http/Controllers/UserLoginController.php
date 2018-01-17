@@ -3,20 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class UserLoginController extends Controller
 {
-    //
+
 
     public function register(Request $request)
     {
         $input = $request->all();
         $input['name'] = $input['f_name'] . ' ' . $input['l_name'];
         $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        return response()->json(['message' => 'User Created '], 200);
+        try {
+            User::create($input);
+
+            return response()->json(['message' => 'User Created '], 200);
+        } catch (QueryException $ex) {
+            return response()->json(['message' => 'SomeThing Error'], 400);
+        }
+
     }
 
     public function login(Request $request)
