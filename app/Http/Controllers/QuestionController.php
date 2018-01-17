@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\BuildingKind;
 use App\Category;
+use App\ConstructionsKind;
 use App\Like;
 use App\Models\User;
 use App\Question;
@@ -53,10 +55,32 @@ class QuestionController extends Controller
             } else {
                 $category_id = Category::where('name', 'like', $request->category)->first()->id;
             }
+
+            if (!isset(BuildingKind::where('name', 'like', $request->building)->first()->id)) {
+                $building = new BuildingKind();
+                $building->name = $request->building;
+                $building->save();
+                $building_id = $building->id;
+            } else {
+                $building_id = BuildingKind::where('name', 'like', $request->building)->first()->id;
+            }
+
+            if (!isset(ConstructionsKind::where('name', 'like', $request->construction)->first()->id)) {
+                $construction = new ConstructionsKind();
+                $construction->name = $request->building;
+                $construction->save();
+                $construction_id = $construction->id;
+            } else {
+                $construction_id = ConstructionsKind::where('name', 'like', $request->construction)->first()->id;
+            }
+
+
             $question = new Question();
             $question->question = $request->question;
             $question->user_id = $user->id;
             $question->category_id = $category_id;
+            $question->building_id = $building_id;
+            $question->construction_id = $construction_id;
             $question->save();
             return response()->json(['message' => 'Question Created '], 200);
         } else {
@@ -80,9 +104,29 @@ class QuestionController extends Controller
                     $category_id = Category::where('name', 'like', $request->category)->first()->id;
                 }
 
+                if (!isset(BuildingKind::where('name', 'like', $request->building)->first()->id)) {
+                    $building = new BuildingKind();
+                    $building->name = $request->building;
+                    $building->save();
+                    $building_id = $building->id;
+                } else {
+                    $building_id = BuildingKind::where('name', 'like', $request->building)->first()->id;
+                }
+
+                if (!isset(ConstructionsKind::where('name', 'like', $request->construction)->first()->id)) {
+                    $construction = new ConstructionsKind();
+                    $construction->name = $request->building;
+                    $construction->save();
+                    $construction_id = $construction->id;
+                } else {
+                    $construction_id = ConstructionsKind::where('name', 'like', $request->construction)->first()->id;
+                }
+
                 $question->question = $request->question;
                 $question->user_id = $user->id;
                 $question->category_id = $category_id;
+                $question->building_id = $building_id;
+                $question->construction_id = $construction_id;
                 $question->save();
 
                 return response()->json(['message' => 'Question Updated'], 200);
