@@ -23,7 +23,7 @@ class QuestionController extends Controller
 
     public function getLikedQuestions()
     {
-        $user = UserController::getUserDataByToken();
+        $user = UserLoginController::getUserDataByToken();
 
         $questions = User::where('id', $user->id)->with('likes.question')->get();
         return $questions;
@@ -32,7 +32,7 @@ class QuestionController extends Controller
 
     public function getUserQuestions()
     {
-        $user = UserController::getUserDataByToken();
+        $user = UserLoginController::getUserDataByToken();
         $questions = User::where('id', $user->id)
             ->with('questionsWithAnswer')
             ->with('questionsWithOutAnswer')
@@ -43,7 +43,7 @@ class QuestionController extends Controller
 
     public function createQuestion(Request $request)
     {
-        $user = UserController::getUserDataByToken();
+        $user = UserLoginController::getUserDataByToken();
         if (isset($user)) {
             if (!isset(Category::where('name', 'like', $request->category)->first()->id)) {
                 $category = new Category();
@@ -66,7 +66,7 @@ class QuestionController extends Controller
 
     public function updateQuestion(Request $request)
     {
-        $user = UserController::getUserDataByToken();
+        $user = UserLoginController::getUserDataByToken();
         $questionId = Route::input('question_id');
         $question = Question::where('id', $questionId)->first();
         if (isset($user)) {
@@ -96,7 +96,7 @@ class QuestionController extends Controller
 
     public function deleteQuestion()
     {
-        $user = UserController::getUserDataByToken();
+        $user = UserLoginController::getUserDataByToken();
         if (isset($user)) {
             $questionId = Route::input('question_id');
             $question = Question::where('id', $questionId)->first();
@@ -113,7 +113,7 @@ class QuestionController extends Controller
 
     public function listCategory()
     {
-        $user = UserController::getUserDataByToken();
+        $user = UserLoginController::getUserDataByToken();
         if (isset($user)) {
             $categoryId = Route::input('category_id');
             $questions = Question::where('category_id', $categoryId)->get();
@@ -125,7 +125,7 @@ class QuestionController extends Controller
 
     public function likeQuestion()
     {
-        $user = UserController::getUserDataByToken();
+        $user = UserLoginController::getUserDataByToken();
         if (isset($user)) {
             $questionId = Route::input('question_id');
             $question = Question::where('id', $questionId)->first();
@@ -156,7 +156,7 @@ class QuestionController extends Controller
 
     public function unLikeQuestion()
     {
-        $user = UserController::getUserDataByToken();
+        $user = UserLoginController::getUserDataByToken();
         if (isset($user)) {
             $questionId = Route::input('question_id');
             $question = Question::where('id', $questionId)->first();

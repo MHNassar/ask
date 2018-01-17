@@ -13,11 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/register', 'UserController@register');
-Route::post('/login', 'UserController@login');
+Route::post('/register', 'UserLoginController@register');
+Route::post('/login', 'UserLoginController@login');
 
 Route::group(['middleware' => ['custom_auth']], function () {
-    Route::get('/user/profile', 'UserController@getUser');
+    Route::get('/user/profile', 'UserLoginController@getUser');
     Route::post('/question/create', 'QuestionController@createQuestion');
     Route::post('/question/edit/{question_id}', 'QuestionController@updateQuestion');
     Route::post('question/delete/{question_id}', 'QuestionController@deleteQuestion');

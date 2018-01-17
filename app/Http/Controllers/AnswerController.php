@@ -11,7 +11,7 @@ class AnswerController extends Controller
 {
     public function createAnswer(Request $request)
     {
-        $user = UserController::getUserDataByToken();
+        $user = UserLoginController::getUserDataByToken();
         $questionId = Route::input('question_id');
         if (isset($user)) {
             if (!isset(Question::where('id', $questionId)->first()->id)) {
@@ -30,7 +30,7 @@ class AnswerController extends Controller
 
     public function updateAnswer(Request $request)
     {
-        $user = UserController::getUserDataByToken();
+        $user = UserLoginController::getUserDataByToken();
         $answerId = Route::input('answer_id');
         if (isset($user)) {
             if (!isset(Answer::where('id', $answerId)->first()->id)) {
