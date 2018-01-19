@@ -34,6 +34,7 @@ Route::group(['middleware' => ['custom_auth']], function () {
     Route::post('answer/{answer_id}/edit', 'AnswerController@updateAnswer');
 
     Route::get('/consultants', 'ConsultantController@getConsultants');
+    Route::get('/consultants/question/list', 'ConsultantController@getConsultantQuestions');
     Route::get('/twittes', 'TwitteController@geTwittes');
 
 

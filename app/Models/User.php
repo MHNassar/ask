@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use App\Category;
 use App\Like;
 use App\Question;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Queue\SerializesModels;
 
 class User extends Authenticatable
 {
@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'biography', 'photo', 'type'
+        'name', 'email', 'password', 'phone', 'biography', 'photo', 'type', 'category_id'
     ];
 
     protected $appends = ['questions_count'];
@@ -30,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'token', 'created_at', 'updated_at'
+        'password', 'remember_token', 'token', 'created_at', 'updated_at', 'category_id', 'type'
     ];
 
     public function likes()
@@ -50,9 +50,32 @@ class User extends Authenticatable
             ->with('category')->with('answer')->wherehas('answer');
     }
 
+
+
     public function getQuestionsCountAttribute()
     {
         return Question::where('user_id', $this->id)->count();
+    }
+
+
+    protected function getArrayableItems(array $values)
+    {
+        if ($this->category_id) {
+            array_push($this->appends, 'category');
+        }
+        return parent::getArrayableItems($values);
+
+    }
+
+
+    public function getCategoryAttribute()
+    {
+        $category = Category::find($this->category_id);
+        if ($category) {
+            return $category->name;
+        } else {
+            return null;
+        }
     }
 
 
