@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\forgetPass;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UserLoginController extends Controller
 {
@@ -54,4 +56,31 @@ class UserLoginController extends Controller
     {
         return $this->getUserDataByToken();
     }
+
+    public function editUser(Request $request)
+    {
+        $user = $this->getUserDataByToken();
+        $input = $request->all();
+        $input['name'] = $input['f_name'] . ' ' . $input['l_name'];
+        $user->update($input);
+        return response()->json(['errors' => ''], 200);
+    }
+
+    public function forgetPass(Request $request)
+    {
+        $email = $request->email;
+        $user = User::where('email', $email)->first();
+        if ($user) {
+            $newPass = str_random('8');
+            $user->password = bcrypt($newPass);
+            // Send Email
+            Mail::to($user->email)->send(new forgetPass($newPass));
+            return response()->json(['errors' => ''], 200);
+
+        } else {
+            return response()->json(['errors' => 'User Not Found'], 404);
+
+        }
+    }
+
 }

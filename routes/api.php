@@ -15,9 +15,12 @@ use Illuminate\Http\Request;
 
 Route::post('/register', 'UserLoginController@register');
 Route::post('/login', 'UserLoginController@login');
+Route::post('/forget/pass', 'UserLoginController@forgetPass');
+
 
 Route::group(['middleware' => ['custom_auth']], function () {
     Route::get('/user/profile', 'UserLoginController@getUser');
+    Route::post('/user/profile/edit', 'UserLoginController@editUser');
     Route::post('/question/create', 'QuestionController@createQuestion');
     Route::post('/question/edit/{question_id}', 'QuestionController@updateQuestion');
     Route::post('question/delete/{question_id}', 'QuestionController@deleteQuestion');

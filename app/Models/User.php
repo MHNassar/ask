@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name', 'email', 'password', 'phone', 'biography', 'photo', 'type'
     ];
 
+    protected $appends = ['questions_count'];
+
     protected $primaryKey = 'id';
     /**
      * The attributes that should be hidden for arrays.
@@ -46,6 +48,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Question::class, 'user_id', 'id')
             ->with('category')->with('answer')->wherehas('answer');
+    }
+
+    public function getQuestionsCountAttribute()
+    {
+        return Question::where('user_id', $this->id)->count();
     }
 
 
