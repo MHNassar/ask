@@ -67,7 +67,7 @@ class QuestionController extends Controller
 
             if (!isset(ConstructionsKind::where('name', 'like', $request->construction)->first()->id)) {
                 $construction = new ConstructionsKind();
-                $construction->name = $request->building;
+                $construction->name = $request->construction;
                 $construction->save();
                 $construction_id = $construction->id;
             } else {
@@ -217,6 +217,35 @@ class QuestionController extends Controller
             } else {
                 return response()->json(['message' => 'Question Not Found'], 404);
             }
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    }
+
+    public function filter(Request $request)
+    {
+        $user = UserLoginController::getUserDataByToken();
+        $common = $request->common;
+        $construction = $request->construction;
+        $building = $request->building;
+        if (isset($user)) {
+            if ($common == 1) {
+                $questions = Question::orderBy('likes_count', 'DESC');
+            } else {
+                $questions = Question::orderBy('likes_count', 'ASC');
+            }
+
+            if (isset($construction) and $construction != "") {
+                $construction_id = ConstructionsKind::where('name', 'like', '%' . $construction . '%')->first()->id;
+                $questions = $questions->where('construction_id', $construction_id);
+            }
+
+            if (isset($building) and $building != "") {
+                $building_id = BuildingKind::where('name', 'like', '%' . $building . '%')->first()->id;
+                $questions = $questions->where('building_id', $building_id);
+            }
+
+            return $questions->get();
         } else {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
