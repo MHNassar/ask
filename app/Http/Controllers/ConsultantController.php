@@ -28,6 +28,5 @@ class ConsultantController extends Controller
 
 
         return response()->json(['all_category_questions' => $questionsNotAnswer, 'my_answered_questions' => $myAnswers], 200);
-
     }
 }
