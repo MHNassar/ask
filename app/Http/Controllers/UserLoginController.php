@@ -8,6 +8,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class UserLoginController extends Controller
 {
@@ -62,6 +63,11 @@ class UserLoginController extends Controller
         $user = $this->getUserDataByToken();
         $input = $request->all();
         $input['name'] = $input['f_name'] . ' ' . $input['l_name'];
+        $input['password'] = bcrypt($input['password']);
+        $image = Image::make($input['image']);
+        $temp_name = str_random(10) . '.png';
+        $image->save("public/" . $temp_name, 30);
+        $input['photo'] = url("public/" . $temp_name);
         $user->update($input);
         return response()->json(['errors' => ''], 200);
     }
