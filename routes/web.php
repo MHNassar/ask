@@ -14,15 +14,8 @@
 Auth::routes();
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', function () {
-        return Auth::user()->name;
-    });
+    Route::get('/', 'userController@index');
     Route::resource('users', 'userController');
     Route::resource('twittes', 'TwitteController');
 
