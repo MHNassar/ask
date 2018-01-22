@@ -228,6 +228,7 @@ class QuestionController extends Controller
         $common = $request->common;
         $construction = $request->construction;
         $building = $request->building;
+        $category = $request->category;
         if (isset($user)) {
             if ($common == 1) {
                 $questions = Question::orderBy('likes_count', 'DESC');
@@ -243,6 +244,11 @@ class QuestionController extends Controller
             if (isset($building) and $building != "") {
                 $building_id = BuildingKind::where('name', 'like', '%' . $building . '%')->first()->id;
                 $questions = $questions->where('building_id', $building_id);
+            }
+
+            if (isset($category) and $category != "") {
+                $category_id = Category::where('name', 'like', '%' . $category . '%')->first()->id;
+                $questions = $questions->where('category_id', $category_id);
             }
 
             return $questions->get();
