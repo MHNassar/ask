@@ -51,10 +51,14 @@ class User extends Authenticatable
     }
 
 
-
     public function getQuestionsCountAttribute()
     {
-        return Question::where('user_id', $this->id)->count();
+        if ($this->type == 0) {
+            return Question::where('user_id', $this->id)->count();
+        } else {
+            return Question::where('category_id', $this->category_id)->count();
+
+        }
     }
 
 

@@ -17,6 +17,9 @@ Route::post('/register', 'UserLoginController@register');
 Route::post('/login', 'UserLoginController@login');
 Route::post('/forget/pass', 'UserLoginController@forgetPass');
 
+Route::get('/twittes', 'TwitteController@geTwittes');
+Route::get('questions/{q?}', 'QuestionController@getAllQuestions');
+
 
 Route::group(['middleware' => ['custom_auth']], function () {
     Route::get('/user/profile', 'UserLoginController@getUser');
@@ -28,7 +31,6 @@ Route::group(['middleware' => ['custom_auth']], function () {
     Route::post('category/{category_id}/questions', 'QuestionController@listCategory');
     Route::post('question/like/{question_id}', 'QuestionController@likeQuestion');
     Route::post('question/unlike/{question_id}', 'QuestionController@unLikeQuestion');
-    Route::get('questions/{q?}', 'QuestionController@getAllQuestions');
     Route::get('user/questions/like', 'QuestionController@getLikedQuestions');
     Route::get('user/questions', 'QuestionController@getUserQuestions');
     Route::post('question/{question_id}/answer', 'AnswerController@createAnswer');
@@ -36,7 +38,6 @@ Route::group(['middleware' => ['custom_auth']], function () {
 
     Route::get('/consultants', 'ConsultantController@getConsultants');
     Route::get('/consultants/question/list', 'ConsultantController@getConsultantQuestions');
-    Route::get('/twittes', 'TwitteController@geTwittes');
 
 
 });

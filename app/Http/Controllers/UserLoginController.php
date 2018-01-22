@@ -40,7 +40,7 @@ class UserLoginController extends Controller
             } else {
                 $api_token = $user->token;
             }
-            return response()->json(['token' => $api_token], 200);
+            return response()->json(['token' => $api_token, 'type' => $user->type], 200);
         }
         return response()->json(['token' => ''], 401);
 
