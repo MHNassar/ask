@@ -62,7 +62,6 @@ class UserLoginController extends Controller
     {
         $user = $this->getUserDataByToken();
         $input = $request->all();
-        $input['name'] = $input['f_name'] . ' ' . $input['l_name'];
         $input['password'] = bcrypt($input['password']);
         $image = Image::make($input['image']);
         $temp_name = str_random(10) . '.png';

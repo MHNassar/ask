@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'biography', 'photo', 'type', 'category_id'
+        'name', 'email', 'password', 'phone', 'biography', 'photo', 'type', 'category_id', 'years_count', 'study'
     ];
 
     protected $appends = ['questions_count'];
@@ -66,6 +66,10 @@ class User extends Authenticatable
     {
         if ($this->category_id) {
             array_push($this->appends, 'category');
+        }
+        if ($this->type == 0) {
+            array_push($this->hidden, 'years_count', 'study');
+
         }
         return parent::getArrayableItems($values);
 
