@@ -18,15 +18,12 @@ class ConsultantController extends Controller
     public function getConsultantQuestions()
     {
         $user = UserLoginController::getUserDataByToken();
-        $questionsNotAnswer = Question::where('category_id', $user->category_id)
-            ->whereDoesntHave("answer")
-            ->with(['user', 'category', 'answer'])->get();
 
         $myAnswers = Question::where('category_id', $user->category_id)->whereHas('answer', function ($query) use ($user) {
             $query->where('user_id', '=', $user->id);
         })->with(['user', 'category', 'answer'])->get();
 
 
-        return response()->json(['all_category_questions' => $questionsNotAnswer, 'my_answered_questions' => $myAnswers], 200);
+        return response()->json(['question' => $myAnswers], 200);
     }
 }
