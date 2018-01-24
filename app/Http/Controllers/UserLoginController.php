@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\forgetPass;
 use App\Models\User;
+use App\UserDevices;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +41,12 @@ class UserLoginController extends Controller
             } else {
                 $api_token = $user->token;
             }
+            $device_token = $request->get('device_token');
+            $device_type = (int)$request->get('device_type');
+            $mac_address = $request->get('mac_address');
+
+            $this->insertLoggedUserDeviceData($device_type, $mac_address, $user->id, $device_token);
+
             return response()->json(['token' => $api_token, 'type' => $user->type], 200);
         }
         return response()->json(['token' => ''], 401);
@@ -91,6 +98,24 @@ class UserLoginController extends Controller
     {
         return response()->json(['errors' => ''], 200);
 
+    }
+
+    public function insertLoggedUserDeviceData($device_type, $mac_address, $user_id, $device_token = null)
+    {
+
+//        $user_device = UserDevices::where('mac_address', $mac_address)->first();
+//        if (!$user_device) {
+        $user_device = new UserDevices();
+//        }
+        if ($device_token != null) {
+            $user_device->device_type = $device_type;
+            $user_device->device_token = $device_token;
+            $user_device->user_id = $user_id;
+            $user_device->mac_address = $mac_address;
+            $user_device->save();
+        }
+
+        return "true";
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Category;
 use App\Like;
 use App\Question;
+use App\UserDevices;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -84,6 +85,11 @@ class User extends Authenticatable
         } else {
             return null;
         }
+    }
+
+    public function device()
+    {
+        return $this->hasOne(UserDevices::class, 'user_id', 'id');
     }
 
 

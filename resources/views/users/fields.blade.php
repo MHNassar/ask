@@ -1,62 +1,57 @@
 <!-- Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('name', 'Name:') !!}
+    {!! Form::label('name', 'الاسم:') !!}
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Email Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('email', 'Email:') !!}
+    {!! Form::label('email', 'البريد الالكترونى:') !!}
     {!! Form::email('email', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Password Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('password', 'Password:') !!}
+    {!! Form::label('password', 'الرقم السرى:') !!}
     {!! Form::password('password', ['class' => 'form-control']) !!}
 </div>
 
 <!-- Phone Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('phone', 'Phone:') !!}
+    {!! Form::label('phone', 'رقم الجوال:') !!}
     {!! Form::text('phone', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Biography Field -->
 <div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('biography', 'Biography:') !!}
+    {!! Form::label('biography', 'نبذه مختصره:') !!}
     {!! Form::textarea('biography', null, ['class' => 'form-control']) !!}
 </div>
 
+<div class="form-group col-sm-6">
+    {!! Form::label('study', 'الدراسه:') !!}
+    {!! Form::text('study', null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('years_count', 'عدد سنين الخبره:') !!}
+    {!! Form::text('years_count', null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('years_count', 'التخصص:') !!}
+    {!! Form::text('years_count', null, ['class' => 'form-control']) !!}
+</div>
 <!-- Photo Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('photo', 'Photo:') !!}
+    {!! Form::label('photo', 'الصوره:') !!}
     {!! Form::text('photo', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Remember Token Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('remember_token', 'Remember Token:') !!}
-    {!! Form::text('remember_token', null, ['class' => 'form-control']) !!}
-</div>
 
-<!-- Token Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('token', 'Token:') !!}
-    {!! Form::text('token', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Type Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('type', 'Type:') !!}
-    <label class="checkbox-inline">
-        {!! Form::hidden('type', false) !!}
-        {!! Form::checkbox('type', '1', null) !!} 1
-    </label>
-</div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('users.index') !!}" class="btn btn-default">Cancel</a>
+    {!! Form::submit('حفظ', ['class' => 'btn btn-primary']) !!}
+    <a href="{!! route('users.index') !!}" class="btn btn-default">الغاء</a>
 </div>

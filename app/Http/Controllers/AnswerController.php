@@ -22,6 +22,9 @@ class AnswerController extends Controller
             $answer->user_id = $user->id;
             $answer->body = $request->body;
             $answer->save();
+            if (count($user->device) > 0) {
+                app(NotificationsController::class)->sendNotification($user->device->device_token, "One Answer Found");
+            }
             return response()->json(['message' => 'Answer Created '], 200);
         } else {
             return response()->json(['message' => 'Unauthorized'], 401);

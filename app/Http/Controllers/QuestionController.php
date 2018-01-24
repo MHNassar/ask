@@ -82,6 +82,14 @@ class QuestionController extends Controller
             $question->building_id = $building_id;
             $question->construction_id = $construction_id;
             $question->save();
+
+            $consultants = User::where('category_id', $category_id)->get();
+            foreach ($consultants as $item) {
+                if ($item->device->device_type == 1) {
+                    app(NotificationsController::class)->sendNotification($item->device->device_token, "Some Question Found");
+                }
+            }
+
             return response()->json(['message' => 'Question Created '], 200);
         } else {
             return response()->json(['message' => 'Unauthorized'], 401);
