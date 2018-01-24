@@ -88,4 +88,10 @@ class UserLoginController extends Controller
         }
     }
 
+    public function sendSug(Request $request)
+    {
+        return response()->json(['errors' => ''], 200);
+
+    }
+
 }

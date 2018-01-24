@@ -35,6 +35,7 @@ Route::group(['middleware' => ['custom_auth']], function () {
     Route::get('user/questions', 'QuestionController@getUserQuestions');
     Route::post('question/{question_id}/answer', 'AnswerController@createAnswer');
     Route::post('answer/{answer_id}/edit', 'AnswerController@updateAnswer');
+    Route::post('suggestion/send', 'UserLoginController@sendSug');
 
     Route::get('/consultants', 'ConsultantController@getConsultants');
     Route::get('/consultants/question/list', 'ConsultantController@getConsultantQuestions');
