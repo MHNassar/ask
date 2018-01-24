@@ -43,9 +43,7 @@ class UserLoginController extends Controller
             }
             $device_token = $request->get('device_token');
             $device_type = (int)$request->get('device_type');
-            $mac_address = $request->get('mac_address');
-
-            $this->insertLoggedUserDeviceData($device_type, $mac_address, $user->id, $device_token);
+            $this->insertLoggedUserDeviceData($device_type, $user->id, $device_token);
 
             return response()->json(['token' => $api_token, 'type' => $user->type], 200);
         }
@@ -100,7 +98,7 @@ class UserLoginController extends Controller
 
     }
 
-    public function insertLoggedUserDeviceData($device_type, $mac_address, $user_id, $device_token = null)
+    public function insertLoggedUserDeviceData($device_type, $user_id, $device_token = null)
     {
 
 //        $user_device = UserDevices::where('mac_address', $mac_address)->first();
@@ -111,7 +109,6 @@ class UserLoginController extends Controller
             $user_device->device_type = $device_type;
             $user_device->device_token = $device_token;
             $user_device->user_id = $user_id;
-            $user_device->mac_address = $mac_address;
             $user_device->save();
         }
 
