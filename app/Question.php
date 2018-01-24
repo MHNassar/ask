@@ -25,4 +25,5 @@ class Question extends Model
         return $this->hasOne(Answer::class, 'question_id', 'id')->with('answersUser');
     }
 
+
 }
