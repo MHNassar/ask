@@ -251,7 +251,6 @@ class QuestionController extends Controller
                 }
                 $questions = $questions->where('construction_id', $construction_id->id);
             }
-
             if (isset($building) and $building != "") {
                 $building_id = BuildingKind::where('name', 'like', '%' . $building . '%')->first();
                 if (!$building_id) {
