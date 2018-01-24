@@ -245,18 +245,27 @@ class QuestionController extends Controller
             }
 
             if (isset($construction) and $construction != "") {
-                $construction_id = ConstructionsKind::where('name', 'like', '%' . $construction . '%')->first()->id;
-                $questions = $questions->where('construction_id', $construction_id);
+                $construction_id = ConstructionsKind::where('name', 'like', '%' . $construction . '%')->first();
+                if (!$construction_id) {
+                    return response()->json(['message' => 'Construction Not Found'], 400);
+                }
+                $questions = $questions->where('construction_id', $construction_id->id);
             }
 
             if (isset($building) and $building != "") {
-                $building_id = BuildingKind::where('name', 'like', '%' . $building . '%')->first()->id;
-                $questions = $questions->where('building_id', $building_id);
+                $building_id = BuildingKind::where('name', 'like', '%' . $building . '%')->first();
+                if (!$building_id) {
+                    return response()->json(['message' => 'Building Not Found'], 400);
+                }
+                $questions = $questions->where('building_id', $building_id->id);
             }
 
             if (isset($category) and $category != "") {
-                $category_id = Category::where('name', 'like', '%' . $category . '%')->first()->id;
-                $questions = $questions->where('category_id', $category_id);
+                $category_id = Category::where('name', 'like', '%' . $category . '%')->first();
+                if (!$category_id) {
+                    return response()->json(['message' => 'Category Not Found'], 400);
+                }
+                $questions = $questions->where('category_id', $category_id->id);
             }
 
             return $questions->get();
