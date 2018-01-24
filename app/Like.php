@@ -13,7 +13,7 @@ class Like extends Model
     public function question()
     {
         return $this->belongsTo(Question::class, 'question_id')
-            ->with('user')->with('category');
+            ->with('user')->with('category')->with('answer');
     }
 
 }
