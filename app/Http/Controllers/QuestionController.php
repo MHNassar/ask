@@ -239,9 +239,9 @@ class QuestionController extends Controller
         $category = $request->category;
         if (isset($user)) {
             if ($common == 1) {
-                $questions = Question::orderBy('likes_count', 'DESC');
+                $questions = Question::orderBy('likes_count', 'DESC')->with(['user', 'category', 'answer']);
             } else {
-                $questions = Question::orderBy('likes_count', 'ASC');
+                $questions = Question::orderBy('created_at', 'DESC');
             }
 
             if (isset($construction) and $construction != "") {
