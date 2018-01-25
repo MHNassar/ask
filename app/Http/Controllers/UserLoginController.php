@@ -84,7 +84,7 @@ class UserLoginController extends Controller
             $user->password = bcrypt($newPass);
             $user->save();
             // Send Email
-            Mail::to($user->email)->send(new forgetPass($newPass));
+//            Mail::to($user->email)->send(new forgetPass($newPass));
             return response()->json(['errors' => ''], 200);
 
         } else {
