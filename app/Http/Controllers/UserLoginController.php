@@ -82,6 +82,7 @@ class UserLoginController extends Controller
         if ($user) {
             $newPass = str_random('8');
             $user->password = bcrypt($newPass);
+            $user->save();
             // Send Email
             Mail::to($user->email)->send(new forgetPass($newPass));
             return response()->json(['errors' => ''], 200);
