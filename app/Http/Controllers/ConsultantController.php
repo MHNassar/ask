@@ -19,9 +19,7 @@ class ConsultantController extends Controller
     {
         $user = UserLoginController::getUserDataByToken();
 
-        $myAnswers = Question::where('category_id', $user->category_id)->whereHas('answer', function ($query) use ($user) {
-            $query->where('user_id', '=', $user->id);
-        })->with(['user', 'category', 'answer'])->get();
+        $myAnswers = Question::where('category_id', $user->category_id)->with(['user', 'category', 'answer'])->get();
 
 
         return response()->json(['question' => $myAnswers], 200);
