@@ -20,13 +20,13 @@ class UserLoginController extends Controller
         $input = $request->all();
         $input['name'] = $input['f_name'] . ' ' . $input['l_name'];
         $input['password'] = bcrypt($input['password']);
-//        try {
+        try {
             User::create($input);
 
             return response()->json(['message' => 'User Created '], 200);
-//        } catch (QueryException $ex) {
-//            return response()->json(['message' => 'SomeThing Error'], 400);
-//        }
+        } catch (QueryException $ex) {
+            return response()->json(['message' => 'SomeThing Error'], 400);
+        }
 
     }
 
