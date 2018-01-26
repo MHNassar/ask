@@ -16,8 +16,10 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'userController@index');
+    Route::get('/reports', 'ReportController@index');
     Route::resource('users', 'userController');
     Route::resource('twittes', 'TwitteController');
+
 
 
 });

@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Twitte
+            تعديل تغريده
         </h1>
    </section>
    <div class="content">

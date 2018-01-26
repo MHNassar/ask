@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Answer;
 use App\Category;
 use App\Like;
 use App\Question;
@@ -34,9 +35,16 @@ class User extends Authenticatable
         'password', 'remember_token', 'token', 'created_at', 'updated_at', 'category_id', 'type'
     ];
 
+    public static $rules = [];
+
     public function likes()
     {
         return $this->hasMany(Like::class, 'user_id', 'id');
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class, 'user_id', 'id');
     }
 
     public function questionsWithOutAnswer()

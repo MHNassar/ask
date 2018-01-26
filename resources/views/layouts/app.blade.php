@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>تنظيم الحضور</title>
+    <title>اسأل استشير</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     <link rel="stylesheet" href="{{url('public/css/bootstrap.minn.css')}}">
@@ -253,7 +253,7 @@
         </div>
 
         <!-- Main Footer -->
-        <footer class="main-footer" style="max-height: 100px;text-align: center">AppTcom</a>.</strong> All rights
+        <footer class="main-footer" style="max-height: 100px;text-align: center"></a>.</strong> All rights
             reserved.
         </footer>
 

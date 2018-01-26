@@ -29,7 +29,7 @@ class userController extends AppBaseController
      */
     public function index(userDataTable $userDataTable)
     {
-        $users = $this->userRepository->all();
+        $users = $this->userRepository->all()->where('type', 1);
         return view('users.index')->with('users', $users);
     }
 
@@ -53,10 +53,19 @@ class userController extends AppBaseController
     public function store(CreateuserRequest $request)
     {
         $input = $request->all();
+        $image = $request->file('image');
+        if ($image) {
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path();
+            $image->move($destinationPath, $imageName);
+            $photo = $imageName;
+            $input['photo'] = $photo;
+        }
+        $input['type'] = 1;
 
         $user = $this->userRepository->create($input);
 
-        Flash::success('User saved successfully.');
+        Flash::success('تم الاضافه بنجاح ');
 
         return redirect(route('users.index'));
     }
@@ -119,9 +128,19 @@ class userController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        $user = $this->userRepository->update($request->all(), $id);
+        $input = $request->all();
+        $image = $request->file('image');
+        if ($image) {
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path();
+            $image->move($destinationPath, $imageName);
+            $photo = $imageName;
+            $input['photo'] = $photo;
+        }
 
-        Flash::success('User updated successfully.');
+        $user = $this->userRepository->update($input, $id);
+
+        Flash::success('تم التعديل بنجاح');
 
         return redirect(route('users.index'));
     }
@@ -145,7 +164,7 @@ class userController extends AppBaseController
 
         $this->userRepository->delete($id);
 
-        Flash::success('User deleted successfully.');
+        Flash::success('تم الحزف بنجاح');
 
         return redirect(route('users.index'));
     }

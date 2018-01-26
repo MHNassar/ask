@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Twitte
+            اضافه تغريده
         </h1>
     </section>
     <div class="content">
@@ -14,7 +14,7 @@
                 <div class="row">
                     {!! Form::open(['route' => 'twittes.store']) !!}
 
-                        @include('twittes.fields')
+                    @include('twittes.fields')
 
                     {!! Form::close() !!}
                 </div>
