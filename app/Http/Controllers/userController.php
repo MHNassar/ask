@@ -53,6 +53,7 @@ class userController extends AppBaseController
     public function store(CreateuserRequest $request)
     {
         $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
         $image = $request->file('image');
         if ($image) {
             $imageName = time() . '.' . $image->getClientOriginalExtension();

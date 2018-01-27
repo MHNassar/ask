@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\Models\User;
 use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,8 @@ class AnswerController extends Controller
     {
         $user = UserLoginController::getUserDataByToken();
         $questionId = Route::input('question_id');
+        $qusUserId = Question::find($questionId)->user_id;
+        $qusUser = User::find($qusUserId);
         if (isset($user)) {
             if (!isset(Question::where('id', $questionId)->first()->id)) {
                 return response()->json(['message' => 'Question not found'], 404);
@@ -22,8 +25,8 @@ class AnswerController extends Controller
             $answer->user_id = $user->id;
             $answer->body = $request->body;
             $answer->save();
-            if (count($user->device) > 0) {
-                app(NotificationsController::class)->sendNotification($user->device->device_token, "One Answer Found");
+            if (count($qusUser->device) > 0) {
+                app(NotificationsController::class)->sendNotification($qusUser->device->device_token, "One Answer Found");
             }
             return response()->json(['message' => 'Answer Created '], 200);
         } else {
