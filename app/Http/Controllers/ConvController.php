@@ -46,8 +46,8 @@ class ConvController extends Controller
 
         } else {
             $convs = ConversationUser::where('user_id', $userId)
-                ->with('conversationAccepted')
-                ->with('conversationNotAccepted')->get();
+                ->with('conversation')
+                ->get();
             return $convs;
         }
 
