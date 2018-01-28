@@ -45,10 +45,9 @@ class ConvController extends Controller
             return $convs;
 
         } else {
-            $convs = ConversationUser::where('user_id', $userId)
-                ->with('conversation')
-                ->get();
-            return $convs;
+            $convs_accepted = Conversation::whereApproved(1)->get();
+            $convs_not_accepted = Conversation::whereApproved(0)->get();
+            return response()->json(['convs_accepted' => $convs_accepted, 'convs_not_accepted' => $convs_not_accepted], 200);
         }
 
     }

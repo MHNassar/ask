@@ -31,15 +31,6 @@ class ConversationUser extends Model
         return $this->belongsTo(Conversation::class);
     }
 
-    public function conversationAccepted()
-    {
-        return $this->belongsTo(Conversation::class);
-    }
-
-    public function conversationNotAccepted()
-    {
-        return $this->belongsTo(Conversation::class);
-    }
 
     /**
      * @author Mahmoud Samy,
