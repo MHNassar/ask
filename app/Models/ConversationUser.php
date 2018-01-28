@@ -33,12 +33,12 @@ class ConversationUser extends Model
 
     public function conversationAccepted()
     {
-        return $this->belongsTo(Conversation::class)->where('approved', 1);
+        return $this->belongsTo(Conversation::class)->where('approved', '1', 1);
     }
 
     public function conversationNotAccepted()
     {
-        return $this->belongsTo(Conversation::class)->where('approved', 0);
+        return $this->belongsTo(Conversation::class)->where('approved', '1', 0);
     }
 
     /**
