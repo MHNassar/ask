@@ -40,6 +40,13 @@ Route::group(['middleware' => ['custom_auth']], function () {
     Route::get('/consultants', 'ConsultantController@getConsultants');
     Route::get('/consultants/question/list', 'ConsultantController@getConsultantQuestions');
 
+    /*
+     * Chat
+     */
+
+    Route::post('conv/request', 'ConvController@requestConv');
+    Route::post('conv/accept', 'ConvController@acceptConv');
+    Route::get('conv/all', 'ConvController@getConvList');
 
 });
 
