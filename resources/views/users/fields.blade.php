@@ -49,9 +49,15 @@
             foreach ($rows as $item) {
                 $selectArray[$item->id] = $item->name;
             }
+            if (isset($user)) {
+                $selected = $user->categories()->pluck('category_id');
+            } else {
+                $selected = null;
+            }
 
             ?>
-            {!! Form::select('category_id', $selectArray, null ,['class' => 'form-control'])!!}
+
+            {!! Form::select('category_id',$selectArray, $selected ,array('class' => 'form-control','multiple'=>'multiple','name'=>'category_id[]'))!!}
         </div>
         <!-- Photo Field -->
         <div class="form-group col-sm-6">

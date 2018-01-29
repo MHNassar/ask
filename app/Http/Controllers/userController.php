@@ -64,7 +64,9 @@ class userController extends AppBaseController
         }
         $input['type'] = 1;
 
+
         $user = $this->userRepository->create($input);
+        $user->categories()->attach($request->category_id);
 
         Flash::success('تم الاضافه بنجاح ');
 
@@ -140,6 +142,7 @@ class userController extends AppBaseController
         }
 
         $user = $this->userRepository->update($input, $id);
+        $user->categories()->sync($request->category_id);
 
         Flash::success('تم التعديل بنجاح');
 

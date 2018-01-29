@@ -83,11 +83,14 @@ class QuestionController extends Controller
             $question->construction_id = $construction_id;
             $question->save();
 
-            $consultants = User::where('category_id', $category_id)->get();
+            $categoryUsers = \App\Category::find(2)->users()->pluck('user_id');
+            $consultants = User::whereIn('id', $categoryUsers);
+
             foreach ($consultants as $item) {
                 if ($item->device->device_type == 1) {
                     app(NotificationsController::class)->sendNotification($item->device->device_token, "Some Question Found");
                 }
+
             }
 
             return response()->json(['message' => 'Question Created '], 200);

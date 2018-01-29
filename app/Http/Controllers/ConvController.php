@@ -39,16 +39,18 @@ class ConvController extends Controller
     public function getConvList()
     {
         $user = UserLoginController::getUserDataByToken();
-        $userId = $user->id;
-        if ($user->type == 0) {
-            $convs = ConversationUser::where('user_id', $userId)->with('conversation')->get();
-            return $convs;
 
-        } else {
-            $convs_accepted = Conversation::whereApproved(1)->get();
-            $convs_not_accepted = Conversation::whereApproved(0)->get();
-            return response()->json(['convs_accepted' => $convs_accepted, 'convs_not_accepted' => $convs_not_accepted], 200);
-        }
+        $approved = $user->conversationsApproved()->with(['usersFilter' => function ($query) use ($user) {
+            $query->where('user_id', '!=', $user->id);
+            $query->select('id', 'name', 'photo');
+        }])->get();
+
+        $notApproved = $user->conversationsNotApproved()->with(['usersFilter' => function ($query) use ($user) {
+            $query->where('user_id', '!=', $user->id);
+            $query->select('id', 'name', 'photo');
+        }])->get();
+
+        return response()->json(['convs_approved' => $approved, 'convs_not_approved' => $notApproved], 200);
 
     }
 

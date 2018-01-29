@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'biography', 'photo', 'type', 'category_id', 'years_count', 'study'
+        'name', 'email', 'password', 'phone', 'biography', 'photo', 'type', 'years_count', 'study'
     ];
 
     protected $appends = ['questions_count'];
@@ -73,9 +73,7 @@ class User extends Authenticatable
 
     protected function getArrayableItems(array $values)
     {
-        if ($this->category_id) {
-            array_push($this->appends, 'category');
-        }
+
         if ($this->type == 0) {
             array_push($this->hidden, 'years_count', 'study');
 
@@ -85,20 +83,27 @@ class User extends Authenticatable
     }
 
 
-    public function getCategoryAttribute()
-    {
-        $category = Category::find($this->category_id);
-        if ($category) {
-            return $category->name;
-        } else {
-            return null;
-        }
-    }
-
     public function device()
     {
         return $this->hasOne(UserDevices::class, 'user_id', 'id');
     }
 
+    public function conversationsNotApproved()
+    {
+        return $this->belongsToMany(Conversation::class)->where('approved', 0)
+            ->orderBy('created_at', 'DESC');
+    }
+
+    public function conversationsApproved()
+    {
+        return $this->belongsToMany(Conversation::class)->where('approved', 1)
+            ->orderBy('created_at', 'DESC');
+    }
+
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'user_categories');
+    }
 
 }

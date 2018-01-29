@@ -18,6 +18,6 @@ class Category extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class, 'category_id', 'id');
+        return $this->belongsToMany(User::class, 'user_categories');
     }
 }

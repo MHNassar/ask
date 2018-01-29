@@ -12,6 +12,12 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/', function () {
+    $categoryUsers = \App\Category::find(2)->users()->pluck('user_id');
+    return $categoryUsers;
+
+});
+
 
 Route::post('/register', 'UserLoginController@register');
 Route::post('/login', 'UserLoginController@login');
@@ -19,6 +25,7 @@ Route::post('/forget/pass', 'UserLoginController@forgetPass');
 
 Route::get('/twittes', 'TwitteController@geTwittes');
 Route::get('questions/{q?}', 'QuestionController@getAllQuestions');
+Route::get('/consultants', 'ConsultantController@getConsultants');
 
 
 Route::group(['middleware' => ['custom_auth']], function () {
@@ -37,7 +44,6 @@ Route::group(['middleware' => ['custom_auth']], function () {
     Route::post('answer/{answer_id}/edit', 'AnswerController@updateAnswer');
     Route::post('suggestion/send', 'UserLoginController@sendSug');
 
-    Route::get('/consultants', 'ConsultantController@getConsultants');
     Route::get('/consultants/question/list', 'ConsultantController@getConsultantQuestions');
 
     /*

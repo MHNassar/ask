@@ -2,7 +2,6 @@
     <thead>
     <th>الاسم</th>
     <th>عدد الاسأله المجابه</th>
-    <th>التخصص</th>
 
 
     </thead>
@@ -11,7 +10,6 @@
         <tr>
             <td>{!! $user->name !!}</td>
             <td>{!! $user->answers_count !!}</td>
-            <td>{!! $user->category !!}</td>
         </tr>
     @endforeach
 
