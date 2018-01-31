@@ -12,7 +12,6 @@
             <td>{!! $category->name !!}</td>
             <td>{!! $category->questions->count() !!}</td>
             <td>{!! $category->users->count() !!}</td>
-
         </tr>
     @endforeach
 
