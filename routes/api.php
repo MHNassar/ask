@@ -53,6 +53,8 @@ Route::group(['middleware' => ['custom_auth']], function () {
     Route::post('conv/request', 'ConvController@requestConv');
     Route::post('conv/accept', 'ConvController@acceptConv');
     Route::get('conv/all', 'ConvController@getConvList');
+    Route::post('message/send', 'ConvController@sendMessage');
+    Route::get('conv/{conversationId}', 'ConvController@getConvDetails');
 
 });
 
