@@ -54,7 +54,10 @@ class ConvController extends Controller
             $query->select('id', 'name', 'photo');
         }])->get();
 
-        $notApproved = $user->conversationsNotApproved()->get();
+        $notApproved = $user->conversationsNotApproved()->with(['usersFilter' => function ($query) use ($user) {
+            $query->where('user_id', '!=', $user->id);
+            $query->select('id', 'name', 'photo');
+        }])->get();
 
 
         return response()->json(['convs_approved' => $approved, 'convs_not_approved' => $notApproved], 200);
