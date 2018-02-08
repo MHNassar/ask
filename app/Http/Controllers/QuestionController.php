@@ -15,6 +15,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class QuestionController extends Controller
 {
+
     public function getAllQuestions($q = null)
     {
         $questions = Question::has('answer')->with(['user', 'category', 'answer']);
