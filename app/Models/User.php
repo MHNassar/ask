@@ -95,7 +95,7 @@ class User extends Authenticatable
                 ->orderBy('created_at', 'DESC');
         } else {
             $userCategoriesIds = $this->categories()->pluck('category_id');
-            return $this->belongsToMany(Conversation::class)->where('approved', 0)
+            return Conversation::where('approved', 0)
                 ->whereIn('category_id', $userCategoriesIds)
                 ->orderBy('created_at', 'DESC');
         }
