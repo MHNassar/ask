@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Conversation;
 use App\Models\ConversationUser;
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -15,11 +16,12 @@ class ConvController extends Controller
 
     public function requestConv(Request $request)
     {
-        $receiver_id = $request->receiver_id;
+        $category_id = $request->category_id;
         $sender_id = UserLoginController::getUserDataByToken()->id;
 
         $conv = new Conversation();
         $conv->approved = false;
+        $conv->category_id = $category_id;
         $conv->save();
 
         $convUsers = new ConversationUser();
@@ -27,13 +29,18 @@ class ConvController extends Controller
         $convUsers->user_id = $sender_id;
         $convUsers->save();
 
-        $convUsers = new ConversationUser();
-        $convUsers->conversation_id = $conv->id;
-        $convUsers->user_id = $receiver_id;
-        $convUsers->save();
 
         // send notification ..... to consultant
 
+        $categoryUsers = \App\Category::find($category_id)->users()->pluck('user_id');
+        $consultants = User::whereIn('id', $categoryUsers);
+
+        foreach ($consultants as $item) {
+            if ($item->device->device_type == 1) {
+                app(NotificationsController::class)->sendNotification($item->device->device_token, "Some Message Found");
+            }
+
+        }
         return response()->json(['message' => 'Request Sent '], 200);
 
     }
@@ -52,17 +59,33 @@ class ConvController extends Controller
             $query->select('id', 'name', 'photo');
         }])->get();
 
+
         return response()->json(['convs_approved' => $approved, 'convs_not_approved' => $notApproved], 200);
 
     }
 
     public function acceptConv(Request $request)
     {
+        $sender_id = UserLoginController::getUserDataByToken()->id;
         $convId = $request->conv_id;
         $conv = Conversation::find($convId);
         $conv->approved = true;
         $conv->save();
+        // attach new user to conv
+
+        $convUsers = new ConversationUser();
+        $convUsers->conversation_id = $convId;
+        $convUsers->user_id = $sender_id;
+        $convUsers->save();
+
         // send notification to user
+        $userId = ConversationUser::where('conversation_id', $convId)->where('user_id', '!=', $sender_id)->first()->user_id;
+        $qusUser = User::find($userId);
+
+        if (count($qusUser->device) > 0) {
+            app(NotificationsController::class)->sendNotification($qusUser->device->device_token, "Message Accepted");
+        }
+
 
         return response()->json(['message' => 'Request Sent '], 200);
 

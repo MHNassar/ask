@@ -90,8 +90,17 @@ class User extends Authenticatable
 
     public function conversationsNotApproved()
     {
-        return $this->belongsToMany(Conversation::class)->where('approved', 0)
-            ->orderBy('created_at', 'DESC');
+        if ($this->type = 0) {
+            return $this->belongsToMany(Conversation::class)->where('approved', 0)
+                ->orderBy('created_at', 'DESC');
+        } else {
+            $userCategoriesIds = $this->categories()->pluck('id');
+            return $this->belongsToMany(Conversation::class)->where('approved', 0)
+                ->whereIn('category_id', $userCategoriesIds)
+                ->orderBy('created_at', 'DESC');
+        }
+
+
     }
 
     public function conversationsApproved()

@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class QuestionController extends Controller
 {
@@ -74,6 +76,16 @@ class QuestionController extends Controller
                 $construction_id = ConstructionsKind::where('name', 'like', $request->construction)->first()->id;
             }
 
+            // uploade image if found
+
+            $imagePath = "";
+            if ($request->image != "") {
+                $image = Image::make($request->image);
+                $temp_name = str_random(10) . '.png';
+                $image->save("public/" . $temp_name, 30);
+                $imagePath = url("public/" . $temp_name);
+            }
+
 
             $question = new Question();
             $question->question = $request->question;
@@ -81,9 +93,10 @@ class QuestionController extends Controller
             $question->category_id = $category_id;
             $question->building_id = $building_id;
             $question->construction_id = $construction_id;
+            $question->image = $imagePath;
             $question->save();
 
-            $categoryUsers = \App\Category::find(2)->users()->pluck('user_id');
+            $categoryUsers = \App\Category::find($category_id)->users()->pluck('user_id');
             $consultants = User::whereIn('id', $categoryUsers);
 
             foreach ($consultants as $item) {

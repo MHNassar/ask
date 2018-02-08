@@ -9,7 +9,6 @@ class Conversation extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['event_id'];
     public $table="conversations";
     protected $hidden = ['pivot', 'updated_at', 'deleted_at'];
     protected $appends=['last_message_body', 'last_message_date'];
