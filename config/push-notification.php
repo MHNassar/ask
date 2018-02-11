@@ -5,7 +5,7 @@ return array(
     'askIOS' => array(
         'environment' => 'development',
         'certificate' => base_path('app/ck.pem'),
-        'passPhrase' => 'password',
+        'passPhrase' => '1234',
         'service' => 'apns'
     ),
     'askAndroid' => array(
