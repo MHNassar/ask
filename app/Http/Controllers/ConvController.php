@@ -38,6 +38,9 @@ class ConvController extends Controller
         foreach ($consultants as $item) {
             if ($item->device->device_type == 1) {
                 app(NotificationsController::class)->sendNotification($item->device->device_token, "Some Message Found");
+            } else {
+                app(NotificationsController::class)->sendIOSNotification($item->device->device_token, "Some Message Found");
+
             }
 
         }
@@ -83,7 +86,14 @@ class ConvController extends Controller
         $qusUser = User::find($userId);
 
         if (count($qusUser->device) > 0) {
-            app(NotificationsController::class)->sendNotification($qusUser->device->device_token, "Message Accepted");
+
+            if ($qusUser->device->device_type == 1) {
+                app(NotificationsController::class)->sendNotification($qusUser->device->device_token, "Message Accepted");
+            } else {
+                app(NotificationsController::class)->sendIOSNotification($qusUser->device->device_token, "Message Accepted");
+
+            }
+
         }
 
 

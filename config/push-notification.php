@@ -4,7 +4,7 @@ return array(
 
     'askIOS' => array(
         'environment' => 'development',
-        'certificate' => '/path/to/certificate.pem',
+        'certificate' => base_path('app/ck.pem'),
         'passPhrase' => 'password',
         'service' => 'apns'
     ),

@@ -18,6 +18,17 @@ class NotificationsController extends Controller
 
         }
 
+    }
 
+    public function sendIOSNotification($token, $text)
+    {
+        $iosApp = PushNotification::app('askIOS');
+        try {
+            $iosApp->adapter->setAdapterParameters(['sslverifypeer' => false]);
+            $message = PushNotification::Message($text, array());
+            $iosApp->to($token)->send($message);
+        } catch (\Exception $exception) {
+
+        }
     }
 }

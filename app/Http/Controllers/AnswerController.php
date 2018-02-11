@@ -26,7 +26,12 @@ class AnswerController extends Controller
             $answer->body = $request->body;
             $answer->save();
             if (count($qusUser->device) > 0) {
-                app(NotificationsController::class)->sendNotification($qusUser->device->device_token, "One Answer Found");
+                if ($qusUser->device->device_type == 1) {
+                    app(NotificationsController::class)->sendNotification($qusUser->device->device_token, "One Answer Found");
+                } else {
+                    app(NotificationsController::class)->sendIOSNotification($qusUser->device->device_token, "One Answer Found");
+
+                }
             }
             return response()->json(['message' => 'Answer Created '], 200);
         } else {
