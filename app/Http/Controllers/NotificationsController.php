@@ -24,9 +24,13 @@ class NotificationsController extends Controller
     {
         $iosApp = PushNotification::app('askIOS');
         try {
-            $iosApp->adapter->setAdapterParameters(['sslverifypeer' => false]);
-            $message = PushNotification::Message($text, array());
+            $message = PushNotification::Message($text, array(
+                'badge' => 1,
+                'locArgs' => array(),
+
+            ));
             $iosApp->to($token)->send($message);
+
         } catch (\Exception $exception) {
 
         }
