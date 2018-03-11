@@ -127,7 +127,7 @@ class ConvController extends Controller
         $newMsg->user_id = $user->id;
         $newMsg->type = $request->type;
         $newMsg->save();
-        $channelName = "cha-" . $request->conversationId;
+        $channelName = "real-time" . $request->conversationId;
         Pusher::trigger($channelName, 'send_message', array('text' => $body));
         return response()->json(['message' => 'Message Sent', 'data' => $newMsg], 200);
 
