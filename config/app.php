@@ -183,6 +183,7 @@ return [
         \InfyOm\AdminLTETemplates\AdminLTETemplatesServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider::class,
+        Pusher\Laravel\PusherServiceProvider::class,
 
 
     ],
@@ -238,7 +239,7 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'PushNotification' => Davibennun\LaravelPushNotification\Facades\PushNotification::class,
-
+        'LaravelPusher' => Pusher\Laravel\Facades\Pusher::class
 
     ],
 

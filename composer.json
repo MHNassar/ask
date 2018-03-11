@@ -9,6 +9,7 @@
   "type": "project",
   "require": {
     "php": ">=7.0.0",
+    "davibennun/laravel-push-notification": "dev-laravel5",
     "doctrine/dbal": "~2.3",
     "fideloper/proxy": "~3.3",
     "infyomlabs/adminlte-templates": "5.5.x-dev",
@@ -17,9 +18,10 @@
     "laravel/framework": "5.5.*",
     "laravel/tinker": "~1.0",
     "laravelcollective/html": "^5.5.0",
+    "pusher/pusher-php-server": "^3.0",
     "tymon/jwt-auth": "^1.0@dev",
-    "yajra/laravel-datatables-buttons": "^3.0",
-    "davibennun/laravel-push-notification": "dev-laravel5"
+    "vinkla/pusher": "^4.1",
+    "yajra/laravel-datatables-buttons": "^3.0"
   },
   "require-dev": {
     "filp/whoops": "~2.0",

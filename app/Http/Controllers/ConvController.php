@@ -8,6 +8,7 @@ use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
+use Pusher\Laravel\Facades\Pusher;
 
 class ConvController extends Controller
 {
@@ -127,6 +128,7 @@ class ConvController extends Controller
         $newMsg->type = $request->type;
         $newMsg->save();
 
+        Pusher::trigger($request->conversationId, 'message', ['message' => $newMsg]);
         return response()->json(['message' => 'Message Sent', 'data' => $newMsg], 200);
 
     }
