@@ -127,9 +127,8 @@ class ConvController extends Controller
         $newMsg->user_id = $user->id;
         $newMsg->type = $request->type;
         $newMsg->save();
-
-        Pusher::trigger("test-channel", 'send_message', array('text' => 'Preparing the Pusher Laracon.eu workshop!'));
-
+        $channelName = "cha-" + $request->conversationId;
+        Pusher::trigger($channelName, 'send_message', array('text' => 'Preparing the Pusher Laracon.eu workshop!'));
         return response()->json(['message' => 'Message Sent', 'data' => $newMsg], 200);
 
     }
