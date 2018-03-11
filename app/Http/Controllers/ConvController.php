@@ -128,7 +128,7 @@ class ConvController extends Controller
         $newMsg->type = $request->type;
         $newMsg->save();
 
-        Pusher::trigger($request->conversationId, 'message', $newMsg, null, false, true);
+        Pusher::trigger($request->conversationId, 'send_message', ['message' => $body]);
 
         return response()->json(['message' => 'Message Sent', 'data' => $newMsg], 200);
 
