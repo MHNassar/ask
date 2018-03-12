@@ -35,6 +35,6 @@ class chatRealTime implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('real-time' . $this->msg->conversation_id);
+        return new PrivateChannel('real-time');
     }
 }
