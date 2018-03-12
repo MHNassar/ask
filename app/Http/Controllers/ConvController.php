@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\chatRealTime;
 use App\Models\Conversation;
 use App\Models\ConversationUser;
 use App\Models\Message;
@@ -129,6 +130,7 @@ class ConvController extends Controller
         $newMsg->save();
         $channelName = "real-time" . $request->conversationId;
         Pusher::trigger($channelName, 'send_message', array('text' => $body));
+        event(new chatRealTime($newMsg));
         return response()->json(['message' => 'Message Sent', 'data' => $newMsg], 200);
 
     }
